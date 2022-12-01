@@ -11,32 +11,25 @@ def encrypt_caesar(plaintext: str, shift: int = 3) -> str:
     >>> encrypt_caesar("")
     ''
     """
-
-    word_list = list(plaintext)
-    new_word = []
-
-    for i in range(len(word_list)):
-        if (word_list[i]).isalpha():
-            if (word_list[i]).islower():
-                n = ord(word_list[i]) + shift
+    ciphertext = ""
+    for i in plaintext:
+        if i.isalpha():
+            if i.islower():
+                n = ord(i) + (shift % (ord("z") - ord("a") + 1))
                 if n > ord("z"):
                     n = n - (ord("z") - ord("a") + 1)
                 elif n < ord("a"):
                     n = n + (ord("z") - ord("a") + 1)
-                new_word.append(chr(n))
-            elif (word_list[i]).isupper():
-                n = ord(word_list[i]) + shift
+                ciphertext += (chr(n))
+            else:
+                n = ord(i) + (shift % (ord("z") - ord("a") + 1))
                 if n > ord("Z"):
                     n = n - (ord("Z") - ord("A") + 1)
                 elif n < ord("A"):
                     n = n + (ord("Z") - ord("A") + 1)
-                new_word.append(chr(n))
+                ciphertext += (chr(n))
         else:
-            new_word.append(word_list[i])
-    word_str = ""
-    for j in range(len(new_word)):
-        word_str = word_str + str(new_word[j])
-    ciphertext = word_str
+            ciphertext += i
     return ciphertext
 
 
@@ -53,32 +46,25 @@ def decrypt_caesar(ciphertext: str, shift: int = 3) -> str:
     >>> decrypt_caesar("")
     ''
     """
-
-    word_list = list(ciphertext)
-    new_word = []
-
-    for i in range(len(word_list)):
-        if (word_list[i]).isalpha():
-            if (word_list[i]).islower():
-                n = ord(word_list[i]) - shift
+    plaintext = ""
+    for i in ciphertext:
+        if i.isalpha():
+            if i.islower():
+                n = ord(i) - (shift % (ord("z") - ord("a") + 1))
                 if n > ord("z"):
                     n = n - (ord("z") - ord("a") + 1)
                 elif n < ord("a"):
                     n = n + (ord("z") - ord("a") + 1)
-                new_word.append(chr(n))
-            elif (word_list[i]).isupper():
-                n = ord(word_list[i]) - shift
+                plaintext += (chr(n))
+            else:
+                n = ord(i) - (shift % (ord("z") - ord("a") + 1))
                 if n > ord("Z"):
                     n = n - (ord("Z") - ord("A") + 1)
                 elif n < ord("A"):
                     n = n + (ord("Z") - ord("A") + 1)
-                new_word.append(chr(n))
+                plaintext += (chr(n))
         else:
-            new_word.append(word_list[i])
-    word_str = ""
-    for j in range(len(new_word)):
-        word_str = word_str + str(new_word[j])
-    plaintext = word_str
+            plaintext += i
     return plaintext
 
 

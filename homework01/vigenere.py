@@ -10,35 +10,26 @@ def encrypt_vigenere(plaintext: str, keyword: str) -> str:
     'LXFOPVEFRNHR'
     """
     ciphertext = ""
+    key = keyword * (len(plaintext) // len(keyword) + 1)
 
-    word_list = list(plaintext)
-    key = list(keyword)
-    while len(key) < len(word_list):
-        key = key + key
-    new_word = []
-
-    for i in range(len(word_list)):
-        if (word_list[i]).isalpha():
-            if (word_list[i]).islower():
-                n = ord(word_list[i]) + (ord(key[i]) - ord("a"))
+    for i in range(len(plaintext)):
+        if (plaintext[i]).isalpha():
+            if (plaintext[i]).islower():
+                n = ord(plaintext[i]) + (ord(key[i]) - ord("a"))
                 while n > ord("z"):
                     n = n - (ord("z") - ord("a") + 1)
                 while n < ord("a"):
                     n = n + (ord("z") - ord("a") + 1)
-                new_word.append(chr(n))
-            elif (word_list[i]).isupper():
-                n = ord(word_list[i]) + (ord(key[i]) - ord("A"))
+                ciphertext += (chr(n))
+            elif (plaintext[i]).isupper():
+                n = ord(plaintext[i]) + (ord(key[i]) - ord("A"))
                 while n > ord("Z"):
                     n = n - (ord("Z") - ord("A") + 1)
                 while n < ord("A"):
                     n = n + (ord("Z") - ord("A") + 1)
-                new_word.append(chr(n))
+                ciphertext += (chr(n))
         else:
-            new_word.append(word_list[i])
-    word_str = ""
-    for j in range(len(new_word)):
-        word_str = word_str + str(new_word[j])
-    ciphertext = word_str
+            ciphertext += plaintext[i]
     return ciphertext
 
 
@@ -54,35 +45,26 @@ def decrypt_vigenere(ciphertext: str, keyword: str) -> str:
     'ATTACKATDAWN'
     """
     plaintext = ""
+    key = keyword * (len(ciphertext) // len(keyword) + 1)
 
-    word_list = list(ciphertext)
-    key = list(keyword)
-    while len(key) < len(word_list):
-        key = key + key
-    new_word = []
-
-    for i in range(len(word_list)):
-        if (word_list[i]).isalpha():
-            if (word_list[i]).islower():
-                n = ord(word_list[i]) - (ord(key[i]) - ord("a"))
+    for i in range(len(ciphertext)):
+        if (ciphertext[i]).isalpha():
+            if (ciphertext[i]).islower():
+                n = ord(ciphertext[i]) - (ord(key[i]) - ord("a"))
                 while n > ord("z"):
                     n = n - (ord("z") - ord("a") + 1)
                 while n < ord("a"):
                     n = n + (ord("z") - ord("a") + 1)
-                new_word.append(chr(n))
-            elif (word_list[i]).isupper():
-                n = ord(word_list[i]) - (ord(key[i]) - ord("A"))
+                plaintext += (chr(n))
+            elif (ciphertext[i]).isupper():
+                n = ord(ciphertext[i]) - (ord(key[i]) - ord("A"))
                 while n > ord("Z"):
                     n = n - (ord("Z") - ord("A") + 1)
                 while n < ord("A"):
                     n = n + (ord("Z") - ord("A") + 1)
-                new_word.append(chr(n))
+                plaintext += (chr(n))
         else:
-            new_word.append(word_list[i])
-    word_str = ""
-    for j in range(len(new_word)):
-        word_str = word_str + str(new_word[j])
-    plaintext = word_str
+            plaintext += ciphertext[i]
     return plaintext
 
 
