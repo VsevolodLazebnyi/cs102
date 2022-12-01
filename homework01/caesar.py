@@ -13,12 +13,62 @@ def encrypt_caesar(plaintext: str, shift: int = 3) -> str:
     """
     ciphertext = ""
 
-    Alpha_Big = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
-                 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
-                 'U', 'V', 'W', 'X', 'Y', 'Z']
-    Alpha_small = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j',
-                   'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't',
-                   'u', 'v', 'w', 'x', 'y', 'z']
+    Alpha_Big = [
+            "A",
+            "B",
+            "C",
+            "D",
+            "E",
+            "F",
+            "G",
+            "H",
+            "I",
+            "J",
+            "K",
+            "L",
+            "M",
+            "N",
+            "O",
+            "P",
+            "Q",
+            "R",
+            "S",
+            "T",
+            "U",
+            "V",
+            "W",
+            "X",
+            "Y",
+            "Z",
+    ]
+    Alpha_small = [
+            "a",
+            "b",
+            "c",
+            "d",
+            "e",
+            "f",
+            "g",
+            "h",
+            "i",
+            "j",
+            "k",
+            "l",
+            "m",
+            "n",
+            "o",
+            "p",
+            "q",
+            "r",
+            "s",
+            "t",
+            "u",
+            "v",
+            "w",
+            "x",
+            "y",
+            "z",
+    ]
 
     word_list = list(" ".join(map(str, (plaintext.split()))))
     new_word = []
@@ -43,7 +93,7 @@ def encrypt_caesar(plaintext: str, shift: int = 3) -> str:
             new_word.append(Alpha_Big[n])
         else:
             new_word.append(word_list[i])
-    word_str = ''
+    word_str = ""
     for j in range(0, len(new_word)):
         word_str = word_str + str(new_word[j])
     ciphertext = word_str
@@ -65,12 +115,62 @@ def decrypt_caesar(ciphertext: str, shift: int = 3) -> str:
     """
     plaintext = ""
 
-    Alpha_Big = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
-                 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
-                 'U', 'V', 'W', 'X', 'Y', 'Z']
-    Alpha_small = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j',
-                   'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't',
-                   'u', 'v', 'w', 'x', 'y', 'z']
+    Alpha_Big = [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I",
+        "J",
+        "K",
+        "L",
+        "M",
+        "N",
+        "O",
+        "P",
+        "Q",
+        "R",
+        "S",
+        "T",
+        "U",
+        "V",
+        "W",
+        "X",
+        "Y",
+        "Z",
+    ]
+    Alpha_small = [
+        "a",
+        "b",
+        "c",
+        "d",
+        "e",
+        "f",
+        "g",
+        "h",
+        "i",
+        "j",
+        "k",
+        "l",
+        "m",
+        "n",
+        "o",
+        "p",
+        "q",
+        "r",
+        "s",
+        "t",
+        "u",
+        "v",
+        "w",
+        "x",
+        "y",
+        "z",
+    ]
 
     word_list = list(" ".join(map(str, (ciphertext.split()))))
     new_word = []
@@ -96,10 +196,10 @@ def decrypt_caesar(ciphertext: str, shift: int = 3) -> str:
             new_word.append(Alpha_Big[n])
         else:
             new_word.append(word_list[i])
-    word_str = ''
+    word_str = ""
     for j in range(0, len(new_word)):
         word_str = word_str + str(new_word[j])
     plaintext = word_str
     return plaintext
 
-#done
+# done
