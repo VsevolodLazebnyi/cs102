@@ -107,7 +107,6 @@ def encrypt_vigenere(plaintext: str, keyword: str) -> str:
                     pass
                 new_word.append(Alpha_Big[n])
 
-
             elif key[i] in Alpha_Big:
                 n = Alpha_Big.index(word_list[i]) + (int(Alpha_Big.index(key[i])))
                 while n >= len(Alpha_small) - 1:
