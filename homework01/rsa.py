@@ -15,12 +15,13 @@ def is_prime(n: int) -> bool:
     if n > 1:
         for x in range(2, n):
             if n % x == 0:
-                print('False')
+                A = False
                 break
         else:
-            print('True')
+            A = True
     else:
-        print('False')
+        A = False
+    return A
 
 def gcd(a: int, b: int) -> int:
     """
@@ -31,15 +32,23 @@ def gcd(a: int, b: int) -> int:
     1
     """
     if abs(a) > abs(b):
-        while a % b != 0:
-            a, b = b, (a % b)
-        print(b)
+        if b == 0:
+            A = a
+        else:
+            while a % b != 0:
+                a, b = b, (a % b)
+            A = b
     elif abs(a) < abs(b):
-        while b % a != 0:
-            b, a = a, (b % a)
-        print(a)
+        if a == 0:
+            A = b
+        else:
+            while b % a != 0:
+                b, a = a, (b % a)
+            A = a
+    elif abs(a) == abs(b):
+        A = a
+    return A
     pass
-
 
 def multiplicative_inverse(e: int, phi: int) -> int:
     """
@@ -48,7 +57,14 @@ def multiplicative_inverse(e: int, phi: int) -> int:
     >>> multiplicative_inverse(7, 40)
     23
     """
-    # PUT YOUR CODE HERE
+    if e <= phi:
+        d = 0
+        while d * e % phi != 1:
+            d += 1
+        A = d
+    else:
+        A = 0
+    return A
     pass
 
 
