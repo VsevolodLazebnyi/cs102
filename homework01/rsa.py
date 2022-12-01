@@ -15,13 +15,10 @@ def is_prime(n: int) -> bool:
     if n > 1:
         for x in range(2, n):
             if n % x == 0:
-                A = False
-                break
-        else:
-            A = True
+                return False
     else:
-        A = False
-    return A
+        return False
+    return True
 
 
 def gcd(a: int, b: int) -> int:
