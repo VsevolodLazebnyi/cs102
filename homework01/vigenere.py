@@ -20,18 +20,18 @@ def encrypt_vigenere(plaintext: str, keyword: str) -> str:
     for i in range(len(word_list)):
         if (word_list[i]).isalpha():
             if (word_list[i]).islower():
-                n = ord(word_list[i]) + (ord(key[i]) - ord('a'))
-                while n > ord('z'):
-                    n = n - (ord('z') - ord('a') + 1)
-                while n < ord('a'):
-                    n = n + (ord('z') - ord('a') + 1)
+                n = ord(word_list[i]) + (ord(key[i]) - ord("a"))
+                while n > ord("z"):
+                    n = n - (ord("z") - ord("a") + 1)
+                while n < ord("a"):
+                    n = n + (ord("z") - ord("a") + 1)
                 new_word.append(chr(n))
             elif (word_list[i]).isupper():
-                n = ord(word_list[i]) + (ord(key[i]) - ord('A'))
-                while n > ord('Z'):
-                    n = n - (ord('Z') - ord('A') + 1)
-                while n < ord('A'):
-                    n = n + (ord('Z') - ord('A') + 1)
+                n = ord(word_list[i]) + (ord(key[i]) - ord("A"))
+                while n > ord("Z"):
+                    n = n - (ord("Z") - ord("A") + 1)
+                while n < ord("A"):
+                    n = n + (ord("Z") - ord("A") + 1)
                 new_word.append(chr(n))
         else:
             new_word.append(word_list[i])
@@ -64,18 +64,18 @@ def decrypt_vigenere(ciphertext: str, keyword: str) -> str:
     for i in range(len(word_list)):
         if (word_list[i]).isalpha():
             if (word_list[i]).islower():
-                n = ord(word_list[i]) - (ord(key[i]) - ord('a'))
-                while n > ord('z'):
-                    n = n - (ord('z') - ord('a') + 1)
-                while n < ord('a'):
-                    n = n + (ord('z') - ord('a') + 1)
+                n = ord(word_list[i]) - (ord(key[i]) - ord("a"))
+                while n > ord("z"):
+                    n = n - (ord("z") - ord("a") + 1)
+                while n < ord("a"):
+                    n = n + (ord("z") - ord("a") + 1)
                 new_word.append(chr(n))
             elif (word_list[i]).isupper():
-                n = ord(word_list[i]) - (ord(key[i]) - ord('A'))
-                while n > ord('Z'):
-                    n = n - (ord('Z') - ord('A') + 1)
-                while n < ord('A'):
-                    n = n + (ord('Z') - ord('A') + 1)
+                n = ord(word_list[i]) - (ord(key[i]) - ord("A"))
+                while n > ord("Z"):
+                    n = n - (ord("Z") - ord("A") + 1)
+                while n < ord("A"):
+                    n = n + (ord("Z") - ord("A") + 1)
                 new_word.append(chr(n))
         else:
             new_word.append(word_list[i])

@@ -19,17 +19,17 @@ def encrypt_caesar(plaintext: str, shift: int = 3) -> str:
         if (word_list[i]).isalpha():
             if (word_list[i]).islower():
                 n = ord(word_list[i]) + shift
-                if n > ord('z'):
-                    n = n - (ord('z') - ord('a') + 1)
-                elif n < ord('a'):
-                    n = n + (ord('z') - ord('a') + 1)
+                if n > ord("z"):
+                    n = n - (ord("z") - ord("a") + 1)
+                elif n < ord("a"):
+                    n = n + (ord("z") - ord("a") + 1)
                 new_word.append(chr(n))
             elif (word_list[i]).isupper():
                 n = ord(word_list[i]) + shift
-                if n > ord('Z'):
-                    n = n - (ord('Z') - ord('A') + 1)
-                elif n < ord('A'):
-                    n = n + (ord('Z') - ord('A') + 1)
+                if n > ord("Z"):
+                    n = n - (ord("Z") - ord("A") + 1)
+                elif n < ord("A"):
+                    n = n + (ord("Z") - ord("A") + 1)
                 new_word.append(chr(n))
         else:
             new_word.append(word_list[i])
@@ -61,17 +61,17 @@ def decrypt_caesar(ciphertext: str, shift: int = 3) -> str:
         if (word_list[i]).isalpha():
             if (word_list[i]).islower():
                 n = ord(word_list[i]) - shift
-                if n > ord('z'):
-                    n = n - (ord('z') - ord('a') + 1)
-                elif n < ord('a'):
-                    n = n + (ord('z') - ord('a') + 1)
+                if n > ord("z"):
+                    n = n - (ord("z") - ord("a") + 1)
+                elif n < ord("a"):
+                    n = n + (ord("z") - ord("a") + 1)
                 new_word.append(chr(n))
             elif (word_list[i]).isupper():
                 n = ord(word_list[i]) - shift
-                if n > ord('Z'):
-                    n = n - (ord('Z') - ord('A') + 1)
-                elif n < ord('A'):
-                    n = n + (ord('Z') - ord('A') + 1)
+                if n > ord("Z"):
+                    n = n - (ord("Z") - ord("A") + 1)
+                elif n < ord("A"):
+                    n = n + (ord("Z") - ord("A") + 1)
                 new_word.append(chr(n))
         else:
             new_word.append(word_list[i])
