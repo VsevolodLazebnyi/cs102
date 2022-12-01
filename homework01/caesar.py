@@ -20,14 +20,14 @@ def encrypt_caesar(plaintext: str, shift: int = 3) -> str:
                     n = n - (ord("z") - ord("a") + 1)
                 elif n < ord("a"):
                     n = n + (ord("z") - ord("a") + 1)
-                ciphertext += (chr(n))
+                ciphertext += chr(n)
             else:
                 n = ord(i) + (shift % (ord("z") - ord("a") + 1))
                 if n > ord("Z"):
                     n = n - (ord("Z") - ord("A") + 1)
                 elif n < ord("A"):
                     n = n + (ord("Z") - ord("A") + 1)
-                ciphertext += (chr(n))
+                ciphertext += chr(n)
         else:
             ciphertext += i
     return ciphertext
@@ -55,14 +55,14 @@ def decrypt_caesar(ciphertext: str, shift: int = 3) -> str:
                     n = n - (ord("z") - ord("a") + 1)
                 elif n < ord("a"):
                     n = n + (ord("z") - ord("a") + 1)
-                plaintext += (chr(n))
+                plaintext += chr(n)
             else:
                 n = ord(i) - (shift % (ord("z") - ord("a") + 1))
                 if n > ord("Z"):
                     n = n - (ord("Z") - ord("A") + 1)
                 elif n < ord("A"):
                     n = n + (ord("Z") - ord("A") + 1)
-                plaintext += (chr(n))
+                plaintext += chr(n)
         else:
             plaintext += i
     return plaintext

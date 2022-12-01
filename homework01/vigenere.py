@@ -20,14 +20,14 @@ def encrypt_vigenere(plaintext: str, keyword: str) -> str:
                     n = n - (ord("z") - ord("a") + 1)
                 while n < ord("a"):
                     n = n + (ord("z") - ord("a") + 1)
-                ciphertext += (chr(n))
+                ciphertext += chr(n)
             elif (plaintext[i]).isupper():
                 n = ord(plaintext[i]) + (ord(key[i]) - ord("A"))
                 while n > ord("Z"):
                     n = n - (ord("Z") - ord("A") + 1)
                 while n < ord("A"):
                     n = n + (ord("Z") - ord("A") + 1)
-                ciphertext += (chr(n))
+                ciphertext += chr(n)
         else:
             ciphertext += plaintext[i]
     return ciphertext
@@ -55,14 +55,14 @@ def decrypt_vigenere(ciphertext: str, keyword: str) -> str:
                     n = n - (ord("z") - ord("a") + 1)
                 while n < ord("a"):
                     n = n + (ord("z") - ord("a") + 1)
-                plaintext += (chr(n))
+                plaintext += chr(n)
             elif (ciphertext[i]).isupper():
                 n = ord(ciphertext[i]) - (ord(key[i]) - ord("A"))
                 while n > ord("Z"):
                     n = n - (ord("Z") - ord("A") + 1)
                 while n < ord("A"):
                     n = n + (ord("Z") - ord("A") + 1)
-                plaintext += (chr(n))
+                plaintext += chr(n)
         else:
             plaintext += ciphertext[i]
     return plaintext
