@@ -93,6 +93,7 @@ def find_empty_positions(grid: tp.List[tp.List[str]]) -> tp.Optional[tp.Tuple[in
         for j in i:
             if j == ".":
                 return grid.index(i), i.index(j)
+    return None
 
 
 def find_possible_values(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.Set[str]:
@@ -124,23 +125,40 @@ def solve(grid: tp.List[tp.List[str]]) -> tp.Optional[tp.List[tp.List[str]]]:
     >>> solve(grid)
     [['5', '3', '4', '6', '7', '8', '9', '1', '2'], ['6', '7', '2', '1', '9', '5', '3', '4', '8'], ['1', '9', '8', '3', '4', '2', '5', '6', '7'], ['8', '5', '9', '7', '6', '1', '4', '2', '3'], ['4', '2', '6', '8', '5', '3', '7', '9', '1'], ['7', '1', '3', '9', '2', '4', '8', '5', '6'], ['9', '6', '1', '5', '3', '7', '2', '8', '4'], ['2', '8', '7', '4', '1', '9', '6', '3', '5'], ['3', '4', '5', '2', '8', '6', '1', '7', '9']]
     """
-    if not find_empty_positions(grid):
+    a = find_empty_positions(grid)
+    if not a:
         return grid
     else:
-        row, col = find_empty_positions(grid)
-    for n in find_possible_values(grid, find_empty_positions(grid)):
+        row, col = a
+    for n in find_possible_values(grid, a):
         grid[row][col] = n
         if solve(grid):
             s = solve(grid)
             return s
         else:
             grid[row][col] = "."
+    return None
 
 
 def check_solution(solution: tp.List[tp.List[str]]) -> bool:
     """Если решение solution верно, то вернуть True, в противном случае False"""
     # TODO: Add doctests with bad puzzles
-    pass
+    for row in range(9):
+        again = 0
+        pos = (row, row)
+        num = solution[row][row]
+        if num == ".":
+            return False
+        for j in range(9):
+            if num == get_block(solution, pos)[j]:
+                again += 1
+            if num == get_row(solution, pos)[j]:
+                again += 1
+            if num == get_col(solution, pos)[j]:
+                again += 1
+        if again != 3:
+            return False
+    return True
 
 
 def generate_sudoku(N: int) -> tp.List[tp.List[str]]:
@@ -164,7 +182,33 @@ def generate_sudoku(N: int) -> tp.List[tp.List[str]]:
     >>> check_solution(solution)
     True
     """
-    pass
+    from random import sample
+
+    def pattern(r, c):
+        return (3 * (r % 3) + r // 3 + c) % 9
+
+    def shuffle(s):
+        return sample(s, len(s))
+
+    rows = [g * 3 + r for g in shuffle(range(3)) for r in shuffle(range(3))]
+    cols = [g * 3 + c for g in shuffle(range(3)) for c in shuffle(range(3))]
+    nums = shuffle(range(1, 3 * 3 + 1))
+
+    board = [[nums[pattern(r, c)] for c in cols] for r in rows]
+
+    sudoku_gen_new = []
+    empties = 81 - N
+    if empties < 0:
+        empties = 0
+    for p in sample(range(81), empties):
+        board[p // 9][p % 9] = 0
+    for line in board:
+        sudoku_gen: list = []
+        for n in line:
+            sudoku_gen.append(*f"{n or '.'}")
+        sudoku_gen_new.append(sudoku_gen)
+
+    return sudoku_gen_new
 
 
 if __name__ == "__main__":
