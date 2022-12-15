@@ -1,4 +1,5 @@
 import pathlib
+import random
 import typing as tp
 
 T = tp.TypeVar("T")
@@ -49,8 +50,7 @@ def get_row(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.List[str
     >>> get_row([['1', '2', '3'], ['4', '5', '6'], ['.', '8', '9']], (2, 0))
     ['.', '8', '9']
     """
-    row, col = pos
-    return grid[row]
+    return grid[pos[0]]
 
 
 def get_col(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.List[str]:
@@ -62,8 +62,7 @@ def get_col(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.List[str
     >>> get_col([['1', '2', '3'], ['4', '5', '6'], ['.', '8', '9']], (0, 2))
     ['3', '6', '9']
     """
-    row, col = pos
-    return [i[col] for i in grid]
+    return [i[pos[1]] for i in grid]
 
 
 def get_block(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.List[str]:
@@ -76,8 +75,7 @@ def get_block(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.List[s
     >>> get_block(grid, (8, 8))
     ['2', '8', '.', '.', '.', '5', '.', '7', '9']
     """
-    row, col = pos
-    return [grid[3 * (row // 3) + r][3 * (col // 3) + c] for r in range(3) for c in range(3)]
+    return [grid[3 * (pos[0] // 3) + r][3 * (pos[1] // 3) + c] for r in range(3) for c in range(3)]
 
 
 def find_empty_positions(grid: tp.List[tp.List[str]]) -> tp.Optional[tp.Tuple[int, int]]:
@@ -89,10 +87,10 @@ def find_empty_positions(grid: tp.List[tp.List[str]]) -> tp.Optional[tp.Tuple[in
     >>> find_empty_positions([['1', '2', '3'], ['4', '5', '6'], ['.', '8', '9']])
     (2, 0)
     """
-    for i in grid:
-        for j in i:
-            if j == ".":
-                return grid.index(i), i.index(j)
+    for i, row in enumerate(grid):
+        for j, col in enumerate(row):
+            if col == ".":
+                return i, j
     return None
 
 
@@ -106,11 +104,9 @@ def find_possible_values(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -
     >>> values == {'2', '5', '9'}
     True
     """
-    p = set()
-    for i in range(1, 10):
-        if str(i) not in get_block(grid, pos) + get_row(grid, pos) + get_col(grid, pos):
-            p.add(str(i))
-    return p
+    return set("1" "2" "3" "4" "5" "6" "7" "8" "9") - set(
+        get_block(grid, pos) + get_row(grid, pos) + get_col(grid, pos)
+    )
 
 
 def solve(grid: tp.List[tp.List[str]]) -> tp.Optional[tp.List[tp.List[str]]]:
@@ -128,15 +124,13 @@ def solve(grid: tp.List[tp.List[str]]) -> tp.Optional[tp.List[tp.List[str]]]:
     a = find_empty_positions(grid)
     if not a:
         return grid
-    else:
-        row, col = a
+    row, col = a
     for n in find_possible_values(grid, a):
         grid[row][col] = n
         if solve(grid):
             s = solve(grid)
             return s
-        else:
-            grid[row][col] = "."
+        grid[row][col] = "."
     return None
 
 
@@ -144,20 +138,13 @@ def check_solution(solution: tp.List[tp.List[str]]) -> bool:
     """Если решение solution верно, то вернуть True, в противном случае False"""
     # TODO: Add doctests with bad puzzles
     for row in range(9):
-        again = 0
-        pos = (row, row)
-        num = solution[row][row]
-        if num == ".":
+        if set(get_row(solution, (0, row))) != set("123456789"):
             return False
-        for j in range(9):
-            if num == get_block(solution, pos)[j]:
-                again += 1
-            if num == get_row(solution, pos)[j]:
-                again += 1
-            if num == get_col(solution, pos)[j]:
-                again += 1
-        if again != 3:
-            return False
+        for col in range(9):
+            if set(get_col(solution, (0, col))) != set("123456789") or set(
+                get_block(solution, (row // 3, col // 3))
+            ) != set("123456789"):
+                return False
     return True
 
 
@@ -182,33 +169,10 @@ def generate_sudoku(N: int) -> tp.List[tp.List[str]]:
     >>> check_solution(solution)
     True
     """
-    from random import sample
-
-    def pattern(r, c):
-        return (3 * (r % 3) + r // 3 + c) % 9
-
-    def shuffle(s):
-        return sample(s, len(s))
-
-    rows = [g * 3 + r for g in shuffle(range(3)) for r in shuffle(range(3))]
-    cols = [g * 3 + c for g in shuffle(range(3)) for c in shuffle(range(3))]
-    nums = shuffle(range(1, 3 * 3 + 1))
-
-    board = [[nums[pattern(r, c)] for c in cols] for r in rows]
-
-    sudoku_gen_new = []
-    empties = 81 - N
-    if empties < 0:
-        empties = 0
-    for p in sample(range(81), empties):
-        board[p // 9][p % 9] = 0
-    for line in board:
-        sudoku_gen: list = []
-        for n in line:
-            sudoku_gen.append(*f"{n or '.'}")
-        sudoku_gen_new.append(sudoku_gen)
-
-    return sudoku_gen_new
+    board = solve([list("." * 81)[i : i + 9] for i in range(0, len(list("." * 81)), 9)])
+    mask = list("0" * N + "." * (81 - N))
+    random.shuffle(mask)
+    return [[board[i][j] if mask[i * 9 + j] == "0" else "." for j in range(9)] for i in range(9)]  # type: ignore
 
 
 if __name__ == "__main__":
