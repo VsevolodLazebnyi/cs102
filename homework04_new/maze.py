@@ -201,7 +201,7 @@ def add_path_to_grid(
             for y, c in enumerate(r):
                 if (x, y) in path:
                     grid[x][y] = "X"
-                # elif isinstance(c, int): #важно ведь!?
+                # elif isinstance(c, int): #важно ведь!
                 # grid[x][y] = ' '
     return grid
 
