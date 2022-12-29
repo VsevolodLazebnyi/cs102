@@ -139,7 +139,7 @@ def encircled_exit(grid: List[List[Union[str, int]]], coord: Tuple[int, int]) ->
         or coord[1] == xrange - 1
         and grid[coord[0]][coord[1] - 1] != " "
     )
-    # а чё ещё остаётся?)))
+    # а чё ещё остаётся?)
 
 
 def solve_maze(
