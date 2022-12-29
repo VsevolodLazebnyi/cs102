@@ -65,12 +65,7 @@ def get_exits(grid: List[List[Union[str, int]]]) -> List[Tuple[int, int]]:
     :return:
     """
     # ищет координаты иксов
-    coord = list()
-    for i, r in enumerate(grid):
-        for j, c in enumerate(r):
-            if c == "X":
-                coord.append((i, j))
-    return coord
+    return [(i, j) for j, c in enumerate(grid) for i, r in enumerate(r) if c == "X"]
 
 
 def make_step(grid: List[List[Union[str, int]]], k: int) -> List[List[Union[str, int]]]:
@@ -110,8 +105,9 @@ def shortest_path(
         k = int(grid[exit_coord[0]][exit_coord[1]])
         for i in pos:
             if 0 <= exit_coord[0] + i[0] < len(grid) and 0 <= exit_coord[1] + i[1] < len(grid[0]):
-                if type(grid[exit_coord[0] + i[0]][exit_coord[1] + i[1]]) is int and \
-                        grid[exit_coord[0] + i[0]][exit_coord[1] + i[1]] == k - 1:
+                if (type(grid[exit_coord[0] + i[0]][exit_coord[1] + i[1]]) is int
+                    and grid[exit_coord[0] + i[0]][exit_coord[1] + i[1]] == k - 1
+                ):
                     path.append(exit_coord)
                     exit_coord = (exit_coord[0] + i[0], exit_coord[1] + i[1])
                     break
@@ -133,14 +129,14 @@ def encircled_exit(grid: List[List[Union[str, int]]], coord: Tuple[int, int]) ->
         return True
     # смотрим пусто ли вокруг входа
     return (
-            coord[0] == 0
-            and grid[coord[0] + 1][coord[1]] != " "
-            or coord[1] == 0
-            and grid[coord[0]][coord[1] + 1] != " "
-            or coord[0] == xrange - 1
-            and grid[coord[0] - 1][coord[1]] != " "
-            or coord[1] == xrange - 1
-            and grid[coord[0]][coord[1] - 1] != " "
+        coord[0] == 0
+        and grid[coord[0] + 1][coord[1]] != " "
+        or coord[1] == 0
+        and grid[coord[0]][coord[1] + 1] != " "
+        or coord[0] == xrange - 1
+        and grid[coord[0] - 1][coord[1]] != " "
+        or coord[1] == xrange - 1
+        and grid[coord[0]][coord[1] - 1] != " "
     )
     # а чё ещё остаётся?)))
 
