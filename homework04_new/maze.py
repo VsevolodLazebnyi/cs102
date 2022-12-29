@@ -2,8 +2,6 @@ from copy import deepcopy
 from random import choice, randint
 from typing import List, Optional, Tuple, Union
 
-import pandas as pd  # type: ignore
-
 
 def create_grid(rows: int = 15, cols: int = 15) -> List[List[Union[str, int]]]:
     return [["■"] * cols for _ in range(rows)]
@@ -11,7 +9,6 @@ def create_grid(rows: int = 15, cols: int = 15) -> List[List[Union[str, int]]]:
 
 def remove_wall(grid: List[List[Union[str, int]]], coord: Tuple[int, int]) -> List[List[Union[str, int]]]:
     """
-
     :param grid:
     :param coord:
     :return:
@@ -32,7 +29,6 @@ def remove_wall(grid: List[List[Union[str, int]]], coord: Tuple[int, int]) -> Li
 
 def bin_tree_maze(rows: int = 15, cols: int = 15, random_exit: bool = True) -> List[List[Union[str, int]]]:
     """
-
     :param rows:
     :param cols:
     :param random_exit:
@@ -65,7 +61,6 @@ def bin_tree_maze(rows: int = 15, cols: int = 15, random_exit: bool = True) -> L
 
 def get_exits(grid: List[List[Union[str, int]]]) -> List[Tuple[int, int]]:
     """
-
     :param grid:
     :return:
     """
@@ -77,7 +72,6 @@ def get_exits(grid: List[List[Union[str, int]]]) -> List[Tuple[int, int]]:
 
 def make_step(grid: List[List[Union[str, int]]], k: int) -> List[List[Union[str, int]]]:
     """
-
     :param grid:
     :param k:
     :return:
@@ -102,7 +96,6 @@ def shortest_path(
     grid: List[List[Union[str, int]]], exit_coord: Tuple[int, int]
 ) -> Optional[Union[Tuple[int, int], List[Tuple[int, int]]]]:
     """
-
     :param grid:
     :param exit_coord:
     :return:
@@ -123,7 +116,6 @@ def shortest_path(
 
 def encircled_exit(grid: List[List[Union[str, int]]], coord: Tuple[int, int]) -> bool:
     """
-
     :param grid:
     :param coord:
     :return:
@@ -153,7 +145,6 @@ def solve_maze(
     grid: List[List[Union[str, int]]],
 ) -> Tuple[List[List[Union[str, int]]], Optional[Union[Tuple[int, int], List[Tuple[int, int]]]]]:
     """
-
     :param grid:
     :return:
     """
@@ -192,7 +183,6 @@ def add_path_to_grid(
     grid: List[List[Union[str, int]]], path: Optional[Union[Tuple[int, int], List[Tuple[int, int]]]]
 ) -> List[List[Union[str, int]]]:
     """
-
     :param grid:
     :param path:
     :return:
@@ -203,15 +193,12 @@ def add_path_to_grid(
             for y, c in enumerate(r):
                 if (x, y) in path:
                     grid[x][y] = "X"
-                # elif isinstance(c, int): #важно ведь!?
+                # elif isinstance(c, int): #важно ведь!
                 # grid[x][y] = ' '
     return grid
 
 
 if __name__ == "__main__":
-    print(pd.DataFrame(bin_tree_maze(15, 15)))
     GRID = bin_tree_maze(15, 15)
-    print(pd.DataFrame(GRID))
     _, PATH = solve_maze(GRID)
     MAZE = add_path_to_grid(GRID, PATH)
-    print(pd.DataFrame(MAZE))
