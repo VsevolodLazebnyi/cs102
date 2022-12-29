@@ -105,7 +105,8 @@ def shortest_path(
         k = int(grid[exit_coord[0]][exit_coord[1]])
         for i in pos:
             if 0 <= exit_coord[0] + i[0] < len(grid) and 0 <= exit_coord[1] + i[1] < len(grid[0]):
-                if (type(grid[exit_coord[0] + i[0]][exit_coord[1] + i[1]]) is int
+                if (
+                    type(grid[exit_coord[0] + i[0]][exit_coord[1] + i[1]]) is int
                     and grid[exit_coord[0] + i[0]][exit_coord[1] + i[1]] == k - 1
                 ):
                     path.append(exit_coord)
