@@ -1,7 +1,7 @@
 import unittest
 from random import seed
 
-import maze  # type: ignore
+import maze
 
 
 class MazeTest(unittest.TestCase):
