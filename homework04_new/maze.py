@@ -65,7 +65,7 @@ def get_exits(grid: List[List[Union[str, int]]]) -> List[Tuple[int, int]]:
     :return:
     """
     # ищет координаты иксов
-    return [(i, j) for j, c in enumerate(grid) for i, r in enumerate(r) if c == "X"]
+    return [(i, j) for i, r in enumerate(grid) for j, c in enumerate(r) if c == "X"]
 
 
 def make_step(grid: List[List[Union[str, int]]], k: int) -> List[List[Union[str, int]]]:
