@@ -12,21 +12,15 @@ def encrypt_vigenere(plaintext: str, keyword: str) -> str:
     ciphertext = ""
     key = keyword * (len(plaintext) // len(keyword) + 1)
 
-    for i in range(len(plaintext)):
-        if (plaintext[i]).isalpha():
-            if (plaintext[i]).islower():
-                n = ord(plaintext[i]) + (ord(key[i]) - ord("a"))
-                while n > ord("z"):
-                    n = n - (ord("z") - ord("a") + 1)
-                while n < ord("a"):
-                    n = n + (ord("z") - ord("a") + 1)
+    for i, _ in enumerate(plaintext):
+        if plaintext[i].isalpha():
+            if plaintext[i].islower():
+                n = (ord(plaintext[i]) + ord(key[i]) - 2 * ord("a")) % 26
+                n += ord("a")
                 ciphertext += chr(n)
             elif (plaintext[i]).isupper():
-                n = ord(plaintext[i]) + (ord(key[i]) - ord("A"))
-                while n > ord("Z"):
-                    n = n - (ord("Z") - ord("A") + 1)
-                while n < ord("A"):
-                    n = n + (ord("Z") - ord("A") + 1)
+                n = (ord(plaintext[i]) + ord(key[i])) % 26
+                n += ord("A")
                 ciphertext += chr(n)
         else:
             ciphertext += plaintext[i]
@@ -47,21 +41,14 @@ def decrypt_vigenere(ciphertext: str, keyword: str) -> str:
     plaintext = ""
     key = keyword * (len(ciphertext) // len(keyword) + 1)
 
-    for i in range(len(ciphertext)):
-        if (ciphertext[i]).isalpha():
-            if (ciphertext[i]).islower():
-                n = ord(ciphertext[i]) - (ord(key[i]) - ord("a"))
-                while n > ord("z"):
-                    n = n - (ord("z") - ord("a") + 1)
-                while n < ord("a"):
-                    n = n + (ord("z") - ord("a") + 1)
+    for i, _ in enumerate(ciphertext):
+        if ciphertext[i].isalpha():
+            n = (ord(ciphertext[i]) - ord(key[i]) + (ord("z") - ord("a") + 1)) % 26
+            if ciphertext[i].islower():
+                n += ord("a")
                 plaintext += chr(n)
             elif (ciphertext[i]).isupper():
-                n = ord(ciphertext[i]) - (ord(key[i]) - ord("A"))
-                while n > ord("Z"):
-                    n = n - (ord("Z") - ord("A") + 1)
-                while n < ord("A"):
-                    n = n + (ord("Z") - ord("A") + 1)
+                n += ord("A")
                 plaintext += chr(n)
         else:
             plaintext += ciphertext[i]
