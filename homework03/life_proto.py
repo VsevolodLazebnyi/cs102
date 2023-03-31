@@ -86,6 +86,7 @@ class GameOfLife:
 
     def get_neighbours(self, cell: Cell) -> Cells:
         neighbours = []
+        # qwerty
         for i in range(-1, 2):
             for j in range(-1, 2):
                 if cell[0] + i >= 0 and cell[1] + j >= 0 and not (i == 0 and j == 0):

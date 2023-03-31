@@ -13,6 +13,7 @@ class Console(UI):
     def draw_borders(self, screen) -> None:
         """Отобразить рамку."""
         screen.clear()
+        # qwerty
         screen.addstr(0, 0, "+")
         for i in range(self.life.cols):
             screen.addstr("-")

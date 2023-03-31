@@ -1,6 +1,4 @@
 import pygame
-from pygame.locals import *
-
 from life import GameOfLife
 from ui import UI
 
@@ -41,6 +39,7 @@ class GUI(UI):
     def run(self) -> None:
         """Запустить игру"""
         pygame.init()
+        # qwerty
         clock = pygame.time.Clock()
         pygame.display.set_caption("Game of Life")
         self.screen.fill(pygame.Color("white"))
