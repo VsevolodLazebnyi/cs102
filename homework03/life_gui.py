@@ -1,4 +1,5 @@
 import pygame
+
 from life import GameOfLife
 from ui import UI
 
@@ -39,7 +40,6 @@ class GUI(UI):
     def run(self) -> None:
         """Запустить игру"""
         pygame.init()
-        # qwerty
         clock = pygame.time.Clock()
         pygame.display.set_caption("Game of Life")
         self.screen.fill(pygame.Color("white"))
@@ -71,3 +71,9 @@ class GUI(UI):
             pygame.display.flip()
             clock.tick(self.speed)
         pygame.quit()
+
+
+if __name__ == "__main__":
+    life = GameOfLife((10, 10), randomize=True)
+    game = GUI(life, cell_size=20, speed=2)
+    game.run()
