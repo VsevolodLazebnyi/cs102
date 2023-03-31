@@ -98,7 +98,7 @@ class GameOfLife:
             data = file.readlines()
 
         height = len(data)
-        # qwerty
+        # qwe
         width = max(len(line) for line in data)
 
         grid = Grid(height, width)  # type: ignore
