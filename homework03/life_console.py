@@ -13,7 +13,6 @@ class Console(UI):
     def draw_borders(self, screen) -> None:
         """Отобразить рамку."""
         screen.clear()
-        # qwerty
         screen.addstr(0, 0, "+")
         for i in range(self.life.cols):
             screen.addstr("-")
@@ -39,6 +38,7 @@ class Console(UI):
         curses.noecho()  # type: ignore
         screen.nodelay(True)  # type: ignore
         # PUT YOUR CODE HERE
+        print(2)
         pause = False
         while not self.life.is_max_generations_exceeded and self.life.is_changing:
             if not pause:
@@ -46,9 +46,15 @@ class Console(UI):
                 self.draw_grid(screen)
                 self.life.step()
             c = screen.getch()
-            if c == ord("p"):
+            if c == ord(" "):
                 pause = not pause
-            elif c == ord("e"):
+            elif c == ord("q"):
                 break
             time.sleep(1 / self.speed)
-        curses.endwin()  # type: ignore
+
+
+if __name__ == "__main__":
+    l = GameOfLife((9, 40))
+    a = Console(l, 1.5)
+    print(1)
+    a.run()
