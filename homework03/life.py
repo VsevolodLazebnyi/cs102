@@ -35,6 +35,7 @@ class GameOfLife:
 
     def get_neighbours(self, cell: Cell) -> Cells:
         neighbours = []
+        # qwerty
         for i in range(-1, 2):
             for j in range(-1, 2):
                 if cell[0] + i >= 0 and cell[1] + j >= 0 and not (i == 0 and j == 0):
@@ -66,21 +67,14 @@ class GameOfLife:
         """
         self.prev_generation = self.curr_generation
         self.curr_generation = self.get_next_generation()
-        # На основе поля создаются разные поколения клеток
         self.generations += 1
-        # Добавляется поколение
 
     @property
     def is_max_generations_exceeded(self) -> bool:
         """
         Не превысило ли текущее число поколений максимально допустимое.
         """
-        if not self.max_generations:
-            return False
-        if self.generations <= self.max_generations:
-            return True
-        else:
-            return False
+        return self.generations >= self.max_generations  # type: ignore
 
     @property
     def is_changing(self) -> bool:
@@ -98,7 +92,6 @@ class GameOfLife:
             data = file.readlines()
 
         height = len(data)
-        # qwe
         width = max(len(line) for line in data)
 
         grid = Grid(height, width)  # type: ignore
@@ -113,6 +106,20 @@ class GameOfLife:
         Сохранить текущее состояние клеток в указанный файл.
         """
         with open(filename, "w") as f:
+            # Записываем размер матрицы
             f.write(f"{self.rows},{self.cols}\n")
+            # Записываем матрицу клеток
             for row in self.curr_generation:
                 f.write(",".join(str(cell) for cell in row) + "\n")
+
+
+if __name__ == "__main__":
+    l = GameOfLife((9, 40))
+    print(l.get_neighbours((0, 0)))
+    print(l.get_neighbours((0, 8)))
+    for i in l.curr_generation:
+        print(*i)
+    print()
+    l.step()
+    for i in l.curr_generation:
+        print(*i)
