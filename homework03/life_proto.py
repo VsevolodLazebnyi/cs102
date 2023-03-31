@@ -1,8 +1,7 @@
 import random
 import typing as tp
-
 import pygame
-from pygame.locals import *
+from pygame import QUIT
 
 Cell = tp.Tuple[int, int]
 Cells = tp.List[int]
@@ -139,4 +138,3 @@ class GameOfLife:
 if __name__ == "__main__":
     game = GameOfLife(320, 240, 10, 10)
     game.run()
-
