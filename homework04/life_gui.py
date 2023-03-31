@@ -72,9 +72,3 @@ class GUI(UI):
             pygame.display.flip()
             clock.tick(self.speed)
         pygame.quit()
-
-
-if __name__ == "__main__":
-    life = GameOfLife((28, 45), randomize=True)
-    game = GUI(life, cell_size=20, speed=20)
-    game.run()
