@@ -101,6 +101,7 @@ class GameOfLife:
             data = file.readlines()
 
         height = len(data)
+        # qwerty
         width = max(len(line) for line in data)
 
         grid = Grid(height, width)  # type: ignore
@@ -115,8 +116,6 @@ class GameOfLife:
         Сохранить текущее состояние клеток в указанный файл.
         """
         with open(filename, "w") as f:
-            # Записываем размер матрицы
             f.write(f"{self.rows},{self.cols}\n")
-            # Записываем матрицу клеток
             for row in self.curr_generation:
                 f.write(",".join(str(cell) for cell in row) + "\n")
