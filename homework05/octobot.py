@@ -21,6 +21,8 @@ def is_valid_date(date: str = "01/01/00", divider: str = "/") -> bool:
     - может быть сегодняшним числом
     - пользователь не должен быть обязан вводить конкретный формат даты
     (например, только через точку или только через слеш)"""
+    if date == datetime.today().date().strftime("%d/%m/%y"):
+        return True
     try:
         if "." in date and divider != ".":
             return False
@@ -362,5 +364,5 @@ def start(message):
     bot.register_next_step_handler(info, choose_action)
 
 
-if __name__ == "__main__":
-    bot.infinity_polling()
+
+#bot.infinity_polling()
