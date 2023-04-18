@@ -38,7 +38,6 @@ def is_valid_date(date: str = "01/01/00", divider: str = "/") -> bool:
         return False
 
 
-
 def is_valid_url(url: str = "") -> bool:
     """Проверяем, что ссылка рабочая"""
     try:
