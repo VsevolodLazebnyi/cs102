@@ -135,7 +135,7 @@ def choose_action(message):
         bot.register_next_step_handler(info, choose_deadline_action)
     elif message.text == "Посмотреть дедлайны на этой неделе":
         worksheet, url, df = access_current_sheet()
-        today = datetime.now()
+        today = datetime.date.today()
         week_from_now = today + datetime.timedelta(days=7)
         filtered_df = df[(df["Дата"].dt.date > today) & (df["Дата"].dt.date <= week_from_now)]
         if not filtered_df.empty:
