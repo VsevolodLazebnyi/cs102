@@ -1,7 +1,6 @@
-import datetime
 import json
 import re
-from datetime import timedelta
+from datetime import datetime, timedelta
 
 import gspread
 import pandas as pd
