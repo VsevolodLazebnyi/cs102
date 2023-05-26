@@ -137,32 +137,27 @@ def choose_action(message):
         bot.register_next_step_handler(info, choose_deadline_action)
     elif message.text == "Посмотреть дедлайны на этой неделе":
         worksheet, url, df = access_current_sheet()
-        today = datetime.date.today()
-        week_from_now = today + datetime.timedelta(days=7)
-        filtered_df = df[(df["Дата"].dt.date > today) & (df["Дата"].dt.date <= week_from_now)]
-        if not filtered_df.empty:
-            bot.send_message(
-                message.chat.id,
-                f"Дедлайны за следующие 7 дней:\n{filtered_df['Дата'].dt.strftime('%d.%m.%Y').str.cat(filtered_df['1'], sep=' - ')}",
-            )
-            bot.send_message(
-                message.chat.id,
-                f"Дедлайны за следующие 7 дней:\n{filtered_df['Дата'].dt.strftime('%d.%m.%Y').str.cat(filtered_df['2'], sep=' - ')}",
-            )
-            bot.send_message(
-                message.chat.id,
-                f"Дедлайны за следующие 7 дней:\n{filtered_df['Дата'].dt.strftime('%d.%m.%Y').str.cat(filtered_df['3'], sep=' - ')}",
-            )
-            bot.send_message(
-                message.chat.id,
-                f"Дедлайны за следующие 7 дней:\n{filtered_df['Дата'].dt.strftime('%d.%m.%Y').str.cat(filtered_df['4'], sep=' - ')}",
-            )
-            bot.send_message(
-                message.chat.id,
-                f"Дедлайны за следующие 7 дней:\n{filtered_df['Дата'].dt.strftime('%d.%m.%Y').str.cat(filtered_df['5'], sep=' - ')}",
-            )
+        today = datetime.today()
+        print(today)
+        week_from_now = today + timedelta(days=7)
+        print(week_from_now)
+        deadlines = []
+        for index, row in df.iterrows():
+            for deadline_str in row:
+                try:
+                    deadline = datetime.strptime(deadline_str, "%d/%m/%y").date()
+                    print(deadline)
+                    if today.date() <= deadline <= week_from_now.date():
+                        deadlines.append(deadline.strftime("%d/%m/%y"))
+                except ValueError:
+                    pass
+        if deadlines:
+            response = "Дедлайны на ближайшие 7 дней:\n" + "\n".join(deadlines)
         else:
-            bot.send_message(message.chat.id, "Нет дедлайнов за следующие 7 дней")
+            response = "На ближайшие 7 дней нет дедлайнов."
+
+        bot.reply_to(message, response)
+
 
 
 def choose_subject_action(message):
@@ -364,4 +359,4 @@ def start(message):
     bot.register_next_step_handler(info, choose_action)
 
 
-# bot.infinity_polling()
+bot.infinity_polling()
