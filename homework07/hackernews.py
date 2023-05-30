@@ -71,6 +71,7 @@ def classify_news():
     s.commit()
     return sorted(news, key=lambda x: x.label)
 
+
 @route("/recommendations")
 def recommendations():
     classified_news = classify_news()
