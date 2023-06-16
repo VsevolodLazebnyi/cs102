@@ -19,6 +19,7 @@ jobs:
         pip install httpretty
         pip install responses
         pip install requestsexceptions
+        pip install matplotlib
         pip install community
         pip install python-louvain
     - name: Install project dependencies
